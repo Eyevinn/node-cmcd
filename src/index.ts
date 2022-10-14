@@ -158,6 +158,16 @@ export class CMCDVersion extends CMCDInteger {
   constructor(value: Number) { super(CMCDKey.v, CMCDHdr.session, value); }
 }
 
+function strcmp(a: string, b: string) {
+  if (a === b) {
+    return 0
+  } else if (a > b) {
+    return 1;
+  } else if (a < b) {
+    return -1;
+  }
+}
+
 function create<T>(ctor: { new (raw): T }, v): T {
   return v !== undefined ? new ctor(v) : undefined;
 }
@@ -267,14 +277,14 @@ export class Payload {
       }
     });
     Object.keys(hdrs).forEach(k => {
-      hdrs[k] = hdrs[k].sort((a, b) => a - b).join(',');
+      hdrs[k] = hdrs[k].sort((a, b) => strcmp(a, b)).join(',');
     });
     return hdrs;
   }
 
   toString() {
     let kv = [];
-    Object.keys(CMCD_MAP).forEach(k => {
+    Object.keys(CMCD_MAP).sort((a, b) => strcmp(a, b)).forEach(k => {
       const key = '_' + CMCD_MAP[k];
       if (this[key]) {
         kv.push(this[key].toString());
