@@ -1,6 +1,6 @@
 {
   "name": "@eyevinn/cmcd",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "NPM library for Common Media Client Data (CTA-5004)",
   "main": "dist/index.js",
   "scripts": {
