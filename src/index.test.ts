@@ -1,4 +1,4 @@
-import { createPayload, CMCDString, CMCDBoolean, CMCDInteger, CMCDDecimal, CMCDEncodedBitrate, CMCDBufferLength, CMCDBufferStarvation, CMCDContentId, CMCDObjectDuration, CMCDDeadline, CMCDMeasuredThroughput, CMCDNextObjectRequest, CMCDObjectType, CMCDNextRangeRequest, CMCDObjectTypeToken, CMCDHdr, CMCDPlaybackRate, CMCDRequestedMaximumThroughput, CMCDStreamingFormat, CMCDStreamingFormatToken, CMCDSessionId, CMCDStreamType, CMCDStreamTypeToken, CMCDStartup, CMCDTopBitrate, CMCDVersion, CMCDKey } from ".";
+import { createPayload, CMCDString, CMCDBoolean, CMCDInteger, CMCDDecimal, CMCDEncodedBitrate, CMCDBufferLength, CMCDBufferStarvation, CMCDContentId, CMCDObjectDuration, CMCDDeadline, CMCDMeasuredThroughput, CMCDNextObjectRequest, CMCDObjectType, CMCDNextRangeRequest, CMCDObjectTypeToken, CMCDHdr, CMCDPlaybackRate, CMCDRequestedMaximumThroughput, CMCDStreamingFormat, CMCDStreamingFormatToken, CMCDSessionId, CMCDStreamType, CMCDStreamTypeToken, CMCDStartup, CMCDTopBitrate, CMCDVersion, CMCDKey, Payload } from ".";
 
 describe("CMCD Basic Type", () => {
   test("string", () => {
@@ -100,5 +100,15 @@ describe("CMCD Payload", () => {
     expect(payload.objectType).toEqual(CMCDObjectTypeToken.video);
     expect(payload.requestedMaximumThroughput).toEqual(15000);
     expect(payload.topBitrate).toEqual(6000);
+  });
+
+  test("can be constructed and returned as query param", () => {
+    const payload = new Payload({ 
+      sessionId: "foobar",
+      bufferStarvation: false,
+      objectDuration: 3000,
+      objectType: CMCDObjectTypeToken.muxed
+    });
+    expect(payload.toString()).toEqual("CMCD=%2Cd%3D3000%2Cot%3Dav%2Csid%3D%22foobar%22");
   });
 });

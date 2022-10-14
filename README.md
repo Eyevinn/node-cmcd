@@ -6,13 +6,35 @@ NPM library for [Common Media Client Data (CTA-5004)](https://cdn.cta.tech/cta/m
 
 ## Example
 
+Create from URL
+
 ```javascript
 import { createPayload } from "@eyevinn/cmcd";
 
 const url: URL;
 url = new URL("https://my.domain/file?CMCD=d%3D10000%2Csid%3D%22foobar%22");
 const payload = createPayload(url.searchParams);
+
 console.log(payload.objectDuration);
+// 10000
+console.log(payload.sessionId);
+// foobar
+```
+
+Generate query string
+
+```javascript
+import { Payload } from "@eyevinn/cmcd";
+
+const payload = new Payload({
+  sessionId: 'foobar',
+  bufferStarvation: false,
+  objectDuration: 3000,
+  objectType: CMCDObjectTypeToken.muxed
+});
+
+console.log(payload.toString());
+// CMCD=%2Cd%3D3000%2Cot%3Dav%2Csid%3D%22foobar%22
 ```
 
 # Support
