@@ -111,4 +111,22 @@ describe("CMCD Payload", () => {
     });
     expect(payload.toString()).toEqual("CMCD=%2Cd%3D3000%2Cot%3Dav%2Csid%3D%22foobar%22");
   });
+
+  test("can be constructed and returned as headers", () => {
+    const payload = new Payload({ 
+      sessionId: '6e2fb550-c457-11e9-bb97-0800200c9a66',
+      bufferStarvation: true,
+      requestedMaximumThroughput: 15000,
+      encodedBitrate: 3200,
+      objectDuration: 4004,
+      objectType: CMCDObjectTypeToken.video,
+      topBitrate: 6000,
+      measuredThroughput: 25400
+    });
+    const headers = payload.headers;
+    expect(headers['CMCD-Request']).toEqual('mtp=25400');
+    expect(headers['CMCD-Object']).toEqual('br=3200,d=4004,ot=v,tb=6000');
+    expect(headers['CMCD-Status']).toEqual('bs,rtp=15000');
+    expect(headers['CMCD-Session']).toEqual('sid="6e2fb550-c457-11e9-bb97-0800200c9a66"')
+  });
 });
