@@ -254,6 +254,24 @@ export class Payload {
   get topBitrate(): Number { return this._topBitrate.value }
   get version(): Number { return this._version.value }
 
+  get headers() {
+    let hdrs = {};
+    Object.keys(CMCD_MAP).forEach(k => {
+      const key = '_' + CMCD_MAP[k];
+      if (this[key]) {
+        const header = this[key].header.toString();
+        if (!hdrs[header]) {
+          hdrs[header] = [];
+        }
+        hdrs[header].push(this[key].toString());
+      }
+    });
+    Object.keys(hdrs).forEach(k => {
+      hdrs[k] = hdrs[k].sort((a, b) => a - b).join(',');
+    });
+    return hdrs;
+  }
+
   toString() {
     let kv = [];
     Object.keys(CMCD_MAP).forEach(k => {
