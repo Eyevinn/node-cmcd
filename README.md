@@ -6,6 +6,15 @@ NPM library for [Common Media Client Data (CTA-5004)](https://cdn.cta.tech/cta/m
 
 ## Example
 
+```javascript
+import { createPayload } from "@eyevinn/cmcd";
+
+const url: URL;
+url = new URL("https://my.domain/file?CMCD=d%3D10000%2Csid%3D%22foobar%22");
+const payload = createPayload(url.searchParams);
+console.log(payload.objectDuration);
+```
+
 # Support
 
 Join our [community on Slack](http://slack.streamingtech.se) where you can post any questions regarding any of our open source projects. Eyevinn's consulting business can also offer you:
