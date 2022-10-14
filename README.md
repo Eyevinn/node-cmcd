@@ -37,6 +37,26 @@ console.log(payload.toString());
 // CMCD=%2Cd%3D3000%2Cot%3Dav%2Csid%3D%22foobar%22
 ```
 
+Return as headers
+
+```javascript
+import { Payload } from "@eyevinn/cmcd";
+
+const payload = new Payload({ 
+  sessionId: '6e2fb550-c457-11e9-bb97-0800200c9a66',
+  bufferStarvation: true,
+  requestedMaximumThroughput: 15000,
+  encodedBitrate: 3200,
+  objectDuration: 4004,
+  objectType: CMCDObjectTypeToken.video,
+  topBitrate: 6000,
+  measuredThroughput: 25400
+});
+
+console.log(payload.headers['CMCD-Object']);
+// br=3200,d=4004,ot=v,tb=6000
+```
+
 # Support
 
 Join our [community on Slack](http://slack.streamingtech.se) where you can post any questions regarding any of our open source projects. Eyevinn's consulting business can also offer you:
